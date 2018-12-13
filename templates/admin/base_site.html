@@ -1,0 +1,11 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block branding %}
+  <a href="/admin"><h1 id="head"><img src="{% static 'img/logo.png' %}" alt="site logo" height="34" width="34" /> PyTut Admin Area</h1></a>
+{% endblock %}
+{% block extrastyle %}
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+  <link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}" />
+{% endblock %}
+{% block title %}PyTut | Admin Area{% endblock %}
