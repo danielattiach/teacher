@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from contact.models import Contact
 
 def register(request):
   if request.method == 'POST':
@@ -56,4 +57,14 @@ def logout(request):
     return redirect('index')
 
 def dashboard(request):
-  return render(request, 'accounts/dashboard.html')
+  if request.user.is_authenticated:
+    print(Contact.objects.filter(target=request.user.id))
+    print(request.user.id)
+    context = {
+      'messages': Contact.objects.filter(target=request.user.id)
+    }
+  else:
+    context = {
+      'messages': 'Login to unlock this feature'
+    }
+  return render(request, 'accounts/dashboard.html', context)

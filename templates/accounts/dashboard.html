@@ -1,1 +1,10 @@
 <h1>DASHBOARD</h1>
+{% if user.is_authenticated %}
+  <ul>
+    {% for message in messages %}
+      <li>{{ message.subject }} :{{ message.author_name }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Register to unlock messages</p>
+{% endif %}

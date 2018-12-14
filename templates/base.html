@@ -211,6 +211,12 @@
                     <input name="name" dir="rtl" type="text" id="name" class="form-control" placeholder="שם" required="true">
                     <label for="name">שם<i class="fa fa-user prefix"></i></label>
                 </div>
+                {% if user.is_authenticated %}
+                <div class="form-label-group">
+                    <input name="target_form" dir="rtl" type="text" id="target_form" class="form-control" placeholder="מען" required="true">
+                    <label for="target_form">מען<i class="fa fa-user prefix"></i></label>
+                </div>
+                {% endif %}
   
                 <div class="form-label-group">
                   <input name="email" dir="rtl" type="email" id="email" class="form-control" placeholder="דוא״ל" required="true">
