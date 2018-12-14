@@ -11,5 +11,4 @@ urlpatterns = [
     path('contact/', include('contact.urls')),
     re_path(r'^auth/', include('social_django.urls', namespace='social')),
     path('accounts/', include('accounts.urls')),
-    path('chat/', include('chat.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

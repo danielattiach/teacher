@@ -8,13 +8,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'w2aeocale7g(*jc*9wb1ca7&4#5ys-f92x8!l*ypq305i0tom&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -22,7 +18,6 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'contact.apps.ContactConfig',
     'accounts.apps.AccountsConfig',
-    'chat.apps.ChatConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -30,7 +25,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'channels'
 ]
 
 SOCIAL_AUTH_PIPELINE = (
@@ -76,15 +70,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'teacher.wsgi.application'
-ASGI_APPLICATION = 'teacher.routing.application'
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
 
 AUTHENTICATION_BACKENDS = (
  'social_core.backends.open_id.OpenIdAuth',
@@ -97,15 +82,7 @@ AUTHENTICATION_BACKENDS = (
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'teacherdb',
-        'USER': 'postgres',
-        'PASSWORD': '321321Aa',
-        'HOST': 'localhost'
-    }
-}
+
 
 
 # Password validation
@@ -156,7 +133,6 @@ MESSAGE_TAGS = {
 }
 
 try:
-    # wtf is happening
     from .local_settings import *
 except ImportError:
     pass
