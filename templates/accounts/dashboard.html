@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% load humanize %}
+{% load i18n %}
+
 {% block content %}
 <!-- Button trigger modal -->
 <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="loginLabel"
@@ -89,47 +92,54 @@ aria-hidden="true">
     </div>
   </div>
 </div>
-<div class="container mb-3 nav-margin text-right">
-  <h2>:הודעות</h2>
-</div>
-{% if user.is_authenticated and messages%}
-  <div class="container table-div text-right">
-    <table class="table table-striped message-table" cellspacing="0" dir="rtl">
-      <thead>
-        <tr class="row container head-row">
-          <th>נושא</th>
-          <th>מאת</th>
-          <th>תאריך</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for message in messages %}
-          <tr class="row message-row container" data-href="{% url 'message' message.id %}">
-            <td>{{ message.subject }}</td>
-            <td>{{ message.author_name }}</td>
-            <td>{{ message.contact_date }}</td>
+<div style="height: 85.9vh">
+
+  <div class="container mb-3 nav-margin text-right">
+    <h2>:הודעות</h2>
+  </div>
+  {% if user.is_authenticated and messages%}
+    <div class="container table-div text-right">
+      <table class="table table-striped message-table" cellspacing="0" dir="rtl">
+        <thead>
+          <tr class="row container head-row">
+            <th>נושא</th>
+            <th>מאת</th>
+            <th>תאריך</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-{% elif user.is_authenticated %}
-  <div class="container mb-3 nav-margin text-right">
-    <p>.אין הודעות חדשות</p>
-  </div>
-{% else %}
-  <div class="container mb-3 nav-margin text-right">
-      <p>.נא להתחבר על מנת לאפשר הודעות</p>
+        </thead>
+        <tbody>
+          {% for message in messages %}
+            <tr class="row message-row container" data-href="{% url 'message' message.id %}">
+              <td>{{ message.subject }}</td>
+              <td>{{ message.author_name }}</td>
+              <td>
+                  {% blocktrans with date=message.contact_date|naturaltime %}
+                    {{ date }}
+                  {% endblocktrans %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-  </div>
-{% endif %}
-<!-- JQuery -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function($) {
-      $(".message-row").click(function() {
-          window.location = $(this).data("href");
+  {% elif user.is_authenticated %}
+    <div class="container mb-3 nav-margin text-right">
+      <p>.אין הודעות חדשות</p>
+    </div>
+  {% else %}
+    <div class="container mb-3 nav-margin text-right">
+        <p>.נא להתחבר על מנת לאפשר הודעות</p>
+      </div>
+    </div>
+  {% endif %}
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+      $(document).ready(function($) {
+        $(".message-row").click(function() {
+            window.location = $(this).data("href");
+        });
       });
-    });
-</script>
+  </script>
+</div>
 {% endblock %}
