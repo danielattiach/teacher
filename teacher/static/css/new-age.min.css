@@ -145,7 +145,7 @@ section h2 {
       color: #fc5320
   }
 
-  #mainNav.navbar-shrink .navbar-nav>li>a,#mainNav.navbar-shrink .navbar-nav>li>a:focus {
+  #mainNav.navbar-shrink .navbar-nav>li>a,#mainNav.navbar-shrink .navbar-nav>li>a:focus, #mainNav.navbar-shrink .navbar-nav>li>form>a  {
       color: #222
   }
 
@@ -157,6 +157,11 @@ section h2 {
 
   #mainNav.navbar-shrink .navbar-nav>li>a:focus:hover,#mainNav.navbar-shrink .navbar-nav>li>a:hover {
       color: #fc5320
+  }
+
+  tr.message-row td {
+    text-decoration: none;
+    color: black;
   }
 }
 
@@ -219,6 +224,7 @@ section.linkup {
   background-color: #6EA4BF;
 }
 
+
 footer,section.linkup {
   text-align: center;
 }
@@ -236,7 +242,7 @@ section.about h2 {
 
 section.about .badges .badge-link {
   display: block;
-  margin-bottom: 25px
+  margin-bottom: 25px;
 }
 
 section.about .badges .badge-link:last-child {
@@ -575,4 +581,69 @@ button i {
 
 .tv-img {
   border-radius: 8px;
+}
+
+.nav-margin {
+  margin-top: 70px;
+}
+
+tr.message-row {
+  cursor: pointer;
+}
+
+tr.head-row,
+tr.message-row {
+  margin: 0;
+  padding: 0;
+}
+
+table.message-table  {
+  -webkit-box-shadow: 0px 4px 22px 2px rgba(0,0,0,0.43); 
+  box-shadow: 0px 4px 22px 2px rgba(0,0,0,0.43);
+  border-radius: 8px;
+}
+
+table.message-table  thead {
+  border-radius: 8px 8px 0 0;
+  background: rgb(70, 171, 204);
+}
+
+table.message-table  tbody {
+  border-radius: 0 0 8px 8px;
+}
+
+table.message-table tbody,
+table.message-table  thead {
+  display: block;
+}
+
+table.message-table  tbody {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 50vh;
+  width: 100%;
+}
+
+table.message-table tbody tr,
+table.message-table thead tr {
+  text-align: right;
+  width: 100%;
+}
+
+table.message-table thead th {
+  text-align: right;
+  width: 33.33333333%;
+}
+
+table.message-table tbody td {
+  width: 33.33333333%;
+}
+
+table.message-table  tbody tr {
+  transition: 0.3s;
+}
+
+table.message-table  tbody tr:hover {
+  background: lightblue;
+  transition: 0.3s;
 }

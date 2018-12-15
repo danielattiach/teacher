@@ -12,7 +12,6 @@ def send(request):
     message = request.POST.get('message', '')
     subject = request.POST.get('subject', '')
     target_form = request.POST.get('target_form', '')
-    print(request.POST)
 
     if request.user.is_authenticated:
       if target_form:
@@ -44,3 +43,13 @@ def send(request):
     )
 
     return redirect('/')
+
+def delete_message(request):
+  if request.method == "POST":
+    if request.user.is_authenticated:
+      msg_id = request.POST.get('msg_id', '')
+      if Contact.objects.get(id=msg_id).target == request.user.id:
+        Contact.objects.filter(pk=msg_id).update(show_message=False)
+        return redirect('/accounts/dashboard')
+    else:
+      return render(request, 'pages/index.html')

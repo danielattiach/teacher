@@ -12,5 +12,6 @@ class Contact(models.Model):
   target = models.IntegerField(default=-1)
   target_name = models.CharField(max_length=200, blank=True)
   contact_date = models.DateTimeField(default=timezone.now, blank=True)
+  show_message = models.BooleanField(default=True)
   def __str__(self):
     return self.name

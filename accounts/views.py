@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from contact.models import Contact
@@ -58,13 +58,24 @@ def logout(request):
 
 def dashboard(request):
   if request.user.is_authenticated:
-    print(Contact.objects.filter(target=request.user.id))
-    print(request.user.id)
     context = {
-      'messages': Contact.objects.filter(target=request.user.id)
+      'messages': Contact.objects.filter(target=request.user.id, show_message=True).order_by('-contact_date')
     }
   else:
     context = {
       'messages': 'Login to unlock this feature'
     }
   return render(request, 'accounts/dashboard.html', context)
+
+def message(request, message_id):
+  if request.user.is_authenticated:
+    msg = get_object_or_404(Contact, pk=message_id)
+    if msg.target == request.user.id:
+      context = {
+        'message': msg
+      }
+      return render(request, 'accounts/message.html', context)
+    else:
+      return redirect('/')
+  else:
+    return redirect('/')

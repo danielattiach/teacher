@@ -1,10 +1,135 @@
-<h1>DASHBOARD</h1>
-{% if user.is_authenticated %}
-  <ul>
-    {% for message in messages %}
-      <li>{{ message.subject }} :{{ message.author_name }}</li>
-    {% endfor %}
-  </ul>
+{% extends 'base.html' %}
+{% block content %}
+<!-- Button trigger modal -->
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="loginLabel"
+aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">התחברות</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="modal-body mx-4">
+          <div class="form-label-group">
+            <input name="username" dir="rtl" type="text" id="username" class="form-control" placeholder="שם משתמש" required="true">
+            <label for="username">שם משתמש<i class="fa fa-user prefix"></i></label>
+          </div>
+          
+          <div class="form-label-group">
+            <input name="password" dir="rtl" type="password" id="password" class="form-control" placeholder="סיסמא" required="true">
+            <label for="password">סיסמא<i class="fa fa-key prefix"></i></label>
+          </div>
+
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-unique" type="submit"><i class="fa fa-paper-plane-o ml-1"></i>שלח/י</button>
+          </div>
+
+          <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="registerLabel"
+aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">הרשמה</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div class="modal-body mx-4">
+
+          <div class="form-label-group">
+            <input name="first_name" dir="rtl" type="text" id="first_name" class="form-control" placeholder="שם פרטי" required="true">
+            <label for="first_name">שם פרטי<i class="fa fa-user prefix"></i></label>
+          </div>
+
+          <div class="form-label-group">
+            <input name="last_name" dir="rtl" type="text" id="last_name" class="form-control" placeholder="שם משפחה" required="true">
+            <label for="last_name">שם משפחה<i class="fa fa-user prefix"></i></label>
+          </div>
+          
+          <div class="form-label-group">
+            <input name="reg_username" dir="rtl" type="text" id="reg_username" class="form-control" placeholder="שם משתמש" required="true">
+            <label for="reg_username">שם משתמש<i class="fa fa-user prefix"></i></label>
+          </div>
+
+          <div class="form-label-group">
+              <input name="reg_email" dir="rtl" type="email" id="reg_email" class="form-control" placeholder="דוא״ל" required="true">
+              <label for="reg_email">דוא״ל<i class="fa fa-envelope prefix"></i></label>
+            </div>
+
+          <div class="form-label-group">
+            <input name="reg_password" dir="rtl" type="password" id="reg_password" class="form-control" placeholder="סיסמא" required="true">
+            <label for="reg_password">סיסמא<i class="fa fa-key prefix"></i></label>
+          </div>
+
+          <div class="form-label-group">
+            <input name="reg_password2" dir="rtl" type="password" id="reg_password2" class="form-control" placeholder="סיסמא בשנית" required="true">
+            <label for="reg_password2">סיסמא בשנית<i class="fa fa-key prefix"></i></label>
+          </div>
+
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-unique" type="submit"><i class="fa fa-paper-plane-o ml-1"></i>שלח/י</button>
+          </div>
+
+          <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container mb-3 nav-margin text-right">
+  <h2>:הודעות</h2>
+</div>
+{% if user.is_authenticated and messages%}
+  <div class="container table-div text-right">
+    <table class="table table-striped message-table" cellspacing="0" dir="rtl">
+      <thead>
+        <tr class="row container head-row">
+          <th>נושא</th>
+          <th>מאת</th>
+          <th>תאריך</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for message in messages %}
+          <tr class="row message-row container" data-href="{% url 'message' message.id %}">
+            <td>{{ message.subject }}</td>
+            <td>{{ message.author_name }}</td>
+            <td>{{ message.contact_date }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% elif user.is_authenticated %}
+  <div class="container mb-3 nav-margin text-right">
+    <p>.אין הודעות חדשות</p>
+  </div>
 {% else %}
-  <p>Register to unlock messages</p>
+  <div class="container mb-3 nav-margin text-right">
+      <p>.נא להתחבר על מנת לאפשר הודעות</p>
+    </div>
+  </div>
 {% endif %}
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function($) {
+      $(".message-row").click(function() {
+          window.location = $(this).data("href");
+      });
+    });
+</script>
+{% endblock %}
