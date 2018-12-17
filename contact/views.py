@@ -11,21 +11,12 @@ def send(request):
     phone = request.POST.get('phone', '')
     message = request.POST.get('message', '')
     subject = request.POST.get('subject', '')
-    target_form = request.POST.get('target_form', '')
 
     if request.user.is_authenticated:
-      if target_form:
-        author = request.user.id
-        author_name = User.objects.get(id=author).first_name + ' ' + User.objects.get(id=author).last_name
-
-        target = User.objects.get(username=target_form).id
-        target_name = User.objects.get(id=target).first_name + ' ' + User.objects.get(id=target).last_name
-        contact = Contact(name=name, email=email, phone=phone, message=message, subject=subject, author=author, target=target, target_name=target_name, author_name=author_name)
-      else:
-        author = request.user.id
-        author_name = User.objects.get(id=author).first_name + ' ' + User.objects.get(id=author).last_name
-        admin = User.objects.get(is_staff=True).id
-        contact = Contact(name=name, email=email, phone=phone, message=message, subject=subject, author=author, author_name=author_name, target=admin, target_name='Admin')
+      author = request.user.id
+      author_name = User.objects.get(id=author).first_name + ' ' + User.objects.get(id=author).last_name
+      admin = User.objects.get(is_staff=True).id
+      contact = Contact(name=name, email=email, phone=phone, message=message, subject=subject, author=author, author_name=author_name, target=admin, target_name='Admin')
     else:
       admin = User.objects.get(is_staff=True).id
       contact = Contact(name=name, email=email, phone=phone, message=message, subject=subject, author=-1, author_name='Unregistered User', target=admin, target_name='Admin')
@@ -48,8 +39,26 @@ def delete_message(request):
   if request.method == "POST":
     if request.user.is_authenticated:
       msg_id = request.POST.get('msg_id', '')
-      if Contact.objects.get(id=msg_id).target == request.user.id:
+      if Contact.objects.get(pk=msg_id).target == request.user.id:
         Contact.objects.filter(pk=msg_id).update(show_message=False)
         return redirect('/accounts/dashboard')
     else:
       return render(request, 'pages/index.html')
+
+def private_message(request, msg_id):
+  if request.method == "POST":
+    if request.user.is_authenticated:
+      print('id', msg_id)
+      subject = request.POST.get('subject', '')
+      message = request.POST.get('message', '')
+      name = request.user.last_name + ' ' + request.user.first_name
+      email = request.user.email
+      author = request.user.id
+      target = Contact.objects.get(pk=msg_id).author
+      target_name = Contact.objects.get(pk=msg_id).author_name
+      contact = Contact(name=name, email=email, message=message, subject=subject, author=author, author_name=name, target=target, target_name=target_name)
+      contact.save()
+      return redirect('/accounts/dashboard')
+    else:
+      return render(request, 'pages/index.html')
+

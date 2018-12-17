@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from contact.models import Contact
+from .models import Avatar
+from django.conf import settings
+import os
 
 def register(request):
   if request.method == 'POST':
@@ -58,9 +61,21 @@ def logout(request):
 
 def dashboard(request):
   if request.user.is_authenticated:
-    context = {
-      'messages': Contact.objects.filter(target=request.user.id, show_message=True).order_by('-contact_date')
-    }
+    try:
+      avatar = Avatar.objects.get(user_id=request.user.id)
+    except:
+      avatar = None
+    messages = Contact.objects.filter(target=request.user.id, show_message=True).order_by('-contact_date')
+    if avatar:
+      context = {
+        'messages': messages,
+        'avatar': avatar.avatar.url,
+      }
+    else:
+      context = {
+        'messages': messages,
+        'avatar': '/media/avatars/no-avatar.png',
+      }
   else:
     context = {
       'messages': 'Login to unlock this feature'
@@ -70,12 +85,43 @@ def dashboard(request):
 def message(request, message_id):
   if request.user.is_authenticated:
     msg = get_object_or_404(Contact, pk=message_id)
+    try:
+      sender_avatar = Avatar.objects.get(user_id=msg.author)
+    except:
+      sender_avatar = None
     if msg.target == request.user.id:
-      context = {
-        'message': msg
-      }
+      if sender_avatar:
+        context = {
+          'message': msg,
+          'sender': sender_avatar.avatar.url,
+        }
+      else:
+        context = {
+          'message': msg,
+          'sender': '/media/avatars/no-avatar.png',
+        }
       return render(request, 'accounts/message.html', context)
     else:
       return redirect('/')
   else:
     return redirect('/')
+
+def upload_avatar(request):
+    if request.user.is_authenticated:
+      if request.method == 'POST':
+        try:
+          current_avatar = Avatar.objects.get(user_id=request.user.id)
+        except:
+          current_avatar = None
+        avatar_image = request.FILES.get('avatar', '')
+        if current_avatar:
+          os.remove(settings.MEDIA_ROOT+current_avatar.avatar.url[6:])
+          current_avatar.delete()
+          avatar_instance = Avatar(user_id=request.user.id, avatar=avatar_image)
+          avatar_instance.save()
+        else:
+          avatar_instance = Avatar(user_id=request.user.id, avatar=avatar_image)
+          avatar_instance.save()
+      return redirect('/accounts/dashboard')
+    else:
+      return redirect('/')

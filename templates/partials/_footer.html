@@ -1,6 +1,8 @@
 {% load static %}
 <footer
-  
+  {% if request.path != '/' %}
+    class="fixed-bottom"
+  {% endif %}
 >
   <div class="container">
     <p>&copy; PyTut <script>document.write(new Date().getFullYear());</script>. All Rights Reserved.</p>

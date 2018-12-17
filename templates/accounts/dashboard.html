@@ -1,9 +1,28 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% load i18n %}
-
 {% block content %}
 <!-- Button trigger modal -->
+
+<div class="modal fade" id="avatarChangeModal" tabindex="-1" role="dialog" aria-labelledby="avatarlabel"
+aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">שינוי תמונת פרופיל</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{% url 'upload_avatar' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" accept="image/*" name="avatar">
+        <input type="submit" value="שלח/י">
+      </form>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="loginLabel"
 aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -92,14 +111,29 @@ aria-hidden="true">
     </div>
   </div>
 </div>
-<div style="height: 85.9vh">
-
-  <div class="container mb-3 nav-margin text-right">
+<div class="nav-margin">
+  <div class="text-right">
+      <div class="container">
+        <div class="container">
+          <div class="row" dir="rtl">
+            <div class="col-xs-4">
+              <a class="user-avatar-link" href="" class="nav-link" data-toggle="modal" data-target="#avatarChangeModal">
+                <img class="img-fluid user-avatar" height="50px" width="50px" src="{{ avatar }}" alt="תמונת פרופיל">
+              </a>
+            </div>
+            <div class="col-xs-8 profile-name">
+              <h5>{{ user.last_name }} {{ user.first_name }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="container mb-3 text-right">
     <h2>:הודעות</h2>
   </div>
   {% if user.is_authenticated and messages%}
     <div class="container table-div text-right">
-      <table class="table table-striped message-table" cellspacing="0" dir="rtl">
+      <table class="table table-striped shadow message-table" cellspacing="0" dir="rtl">
         <thead>
           <tr class="row container head-row">
             <th>נושא</th>
@@ -112,11 +146,7 @@ aria-hidden="true">
             <tr class="row message-row container" data-href="{% url 'message' message.id %}">
               <td>{{ message.subject }}</td>
               <td>{{ message.author_name }}</td>
-              <td>
-                  {% blocktrans with date=message.contact_date|naturaltime %}
-                    {{ date }}
-                  {% endblocktrans %}
-              </td>
+              <td>לפני {{ message.contact_date | timesince }}</td>
             </tr>
           {% endfor %}
         </tbody>
@@ -132,6 +162,7 @@ aria-hidden="true">
       </div>
     </div>
   {% endif %}
+  </div>
   <!-- JQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>

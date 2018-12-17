@@ -597,8 +597,6 @@ tr.message-row {
 }
 
 table.message-table  {
-  -webkit-box-shadow: 0px 4px 22px 2px rgba(0,0,0,0.43); 
-  box-shadow: 0px 4px 22px 2px rgba(0,0,0,0.43);
   border-radius: 8px;
 }
 
@@ -645,4 +643,62 @@ table.message-table  tbody tr {
 table.message-table  tbody tr:hover {
   background: lightblue;
   transition: 0.3s;
+}
+
+div.author-name-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+div.message-content {
+  background: rgba(120, 135, 171, 0.1);
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0.3rem;
+  border-radius: 4px;
+}
+
+div.profile-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.profile-name h5 {
+  margin: 0;
+  padding: 0;
+}
+
+div.message-content p {
+  margin: 0;
+}
+
+img.sender-avatar,
+img.user-avatar {
+  border-radius: 50%;
+  margin-left: 1rem;
+}
+
+div.msg-box {
+  border: 2px solid rgba(22, 41, 85, 0.7);
+  border-radius: 8px;
+  padding-top: 1rem;
+}
+
+div.sender-div {
+  margin-bottom: 1rem;
+}
+
+h5.subject-heading {
+  text-decoration: underline;
+}
+
+div.contact-date {
+  margin: 1rem 0;
+}
+
+div.user-details.div {
+  margin: 0 !important;
 }

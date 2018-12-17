@@ -1,4 +1,3 @@
-from django.shortcuts import redirect
 from django.contrib import admin
 import pages.views as pages_views
 from django.urls import path, include, re_path
