@@ -37,10 +37,18 @@
               </li>
             {% else %}
               <li class="nav-item">
+                {% if request.path == '/accounts/login' %}
+                  <a href="{% url 'login' %}" class="nav-link">התחברות</a>
+                {% else %}                  
                   <a href="" class="nav-link" data-toggle="modal" data-target="#modalLoginForm">התחברות</a>
+                {% endif %}
               </li>
               <li class="nav-item">
+                {% if request.path == '/accounts/register' %}
+                  <a href="{% url 'register' %}" class="nav-link">הרשמה</a>
+                {% else %}
                   <a href="" class="nav-link" data-toggle="modal" data-target="#modalRegisterForm">הרשמה</a>
+                {% endif %}
               </li>
             {% endif %}
           </ul>

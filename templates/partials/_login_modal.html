@@ -1,0 +1,33 @@
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="loginLabel"
+aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">התחברות</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="modal-body mx-4">
+          <div class="form-label-group">
+            <input name="username" dir="rtl" type="text" id="username" class="form-control" placeholder="שם משתמש" required="true">
+            <label for="username">שם משתמש<i class="fa fa-user prefix"></i></label>
+          </div>
+          
+          <div class="form-label-group">
+            <input name="password" dir="rtl" type="password" id="password" class="form-control" placeholder="סיסמא" required="true">
+            <label for="password">סיסמא<i class="fa fa-key prefix"></i></label>
+          </div>
+
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-unique" type="submit"><i class="fa fa-paper-plane-o ml-1"></i>שלח/י</button>
+          </div>
+
+          <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,105 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<!-- Button trigger modal -->
-    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="loginLabel"
-    aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header text-center">
-            <h4 class="modal-title w-100 font-weight-bold">התחברות</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form method="POST" action="{% url 'login' %}">
-            {% csrf_token %}
-            <div class="modal-body mx-4">
-              <div class="form-label-group">
-                <input name="username" dir="rtl" type="text" id="username" class="form-control" placeholder="שם משתמש" required="true">
-                <label for="username">שם משתמש<i class="fa fa-user prefix"></i></label>
-              </div>
-              
-              <div class="form-label-group">
-                <input name="password" dir="rtl" type="password" id="password" class="form-control" placeholder="סיסמא" required="true">
-                <label for="password">סיסמא<i class="fa fa-key prefix"></i></label>
-              </div>
-
-              <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-unique" type="submit"><i class="fa fa-paper-plane-o ml-1"></i>שלח/י</button>
-              </div>
-
-              <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="registerLabel"
-    aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header text-center">
-            <h4 class="modal-title w-100 font-weight-bold">הרשמה</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form method="POST" action="{% url 'register' %}">
-            {% csrf_token %}
-            <div class="modal-body mx-4">
-
-              <div class="form-label-group">
-                <input name="first_name" dir="rtl" type="text" id="first_name" class="form-control" placeholder="שם פרטי" required="true">
-                <label for="first_name">שם פרטי<i class="fa fa-user prefix"></i></label>
-              </div>
-
-              <div class="form-label-group">
-                <input name="last_name" dir="rtl" type="text" id="last_name" class="form-control" placeholder="שם משפחה" required="true">
-                <label for="last_name">שם משפחה<i class="fa fa-user prefix"></i></label>
-              </div>
-              
-              <div class="form-label-group">
-                <input name="reg_username" dir="rtl" type="text" id="reg_username" class="form-control" placeholder="שם משתמש" required="true">
-                <label for="reg_username">שם משתמש<i class="fa fa-user prefix"></i></label>
-              </div>
-
-              <div class="form-label-group">
-                  <input name="reg_email" dir="rtl" type="email" id="reg_email" class="form-control" placeholder="דוא״ל" required="true">
-                  <label for="reg_email">דוא״ל<i class="fa fa-envelope prefix"></i></label>
-                </div>
-
-              <div class="form-label-group">
-                <input name="reg_password" dir="rtl" type="password" id="reg_password" class="form-control" placeholder="סיסמא" required="true">
-                <label for="reg_password">סיסמא<i class="fa fa-key prefix"></i></label>
-              </div>
-
-              <div class="form-label-group">
-                <input name="reg_password2" dir="rtl" type="password" id="reg_password2" class="form-control" placeholder="סיסמא בשנית" required="true">
-                <label for="reg_password2">סיסמא בשנית<i class="fa fa-key prefix"></i></label>
-              </div>
-
-              <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-unique" type="submit"><i class="fa fa-paper-plane-o ml-1"></i>שלח/י</button>
-              </div>
-
-              <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+{% include 'partials/_login_modal.html' %}
+{% include 'partials/_register_modal.html' %}
 
       <div id="particles-js" class="h-100 w-100"></div>
       <header class="masthead">
         <div class="container h-100">
           <div class="row h-100">
             <div class="col-md-7 order-md-2 my-auto">
-              <!-- Contact Alerts -->
-              {% include 'partials/_contact_alerts.html' %}
               <div class="header-content mx-auto my-auto text-center">
-                <h1 class="mb-5 text-center">,למדו פייתון <br />השיגו את היתרון</h1>
+                <h1 class="mb-5 text-center">,מורה פרטי לפייתון <br />מהנוחות של הבית</h1>
                 <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">התחילו עכשיו</a>
               </div>
             </div>

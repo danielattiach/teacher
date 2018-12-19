@@ -1,0 +1,53 @@
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="registerLabel"
+aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">הרשמה</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div class="modal-body mx-4">
+          <div class="form-label-group">
+            <input name="first_name" dir="rtl" type="text" id="first_name" class="form-control" placeholder="שם פרטי" required="true">
+            <label for="first_name">שם פרטי<i class="fa fa-user prefix"></i></label>
+          </div>
+
+          <div class="form-label-group">
+            <input name="last_name" dir="rtl" type="text" id="last_name" class="form-control" placeholder="שם משפחה" required="true">
+            <label for="last_name">שם משפחה<i class="fa fa-user prefix"></i></label>
+          </div>
+          
+          <div class="form-label-group">
+            <input name="reg_username" dir="rtl" type="text" id="reg_username" class="form-control" placeholder="שם משתמש" required="true">
+            <label for="reg_username">שם משתמש<i class="fa fa-user prefix"></i></label>
+          </div>
+
+          <div class="form-label-group">
+              <input name="reg_email" dir="rtl" type="email" id="reg_email" class="form-control" placeholder="דוא״ל" required="true">
+              <label for="reg_email">דוא״ל<i class="fa fa-envelope prefix"></i></label>
+            </div>
+
+          <div class="form-label-group">
+            <input name="reg_password" dir="rtl" type="password" id="reg_password" class="form-control" placeholder="סיסמא" required="true">
+            <label for="reg_password">סיסמא<i class="fa fa-key prefix"></i></label>
+          </div>
+
+          <div class="form-label-group">
+            <input name="reg_password2" dir="rtl" type="password" id="reg_password2" class="form-control" placeholder="סיסמא בשנית" required="true">
+            <label for="reg_password2">סיסמא בשנית<i class="fa fa-key prefix"></i></label>
+          </div>
+
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-unique" type="submit"><i class="fa fa-paper-plane-o ml-1"></i>שלח/י</button>
+          </div>
+
+          <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

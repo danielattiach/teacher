@@ -34,9 +34,12 @@ def register(request):
           messages.success(request, f'{user} ,ברוכים הבאים')
           return redirect('index')
     else:
-      messages.error(request, 'Passwords must match')
-      return redirect('index')
-  return render(request, 'index')
+      messages.error(request, 'הסיסמאות מוכרחות להיות זהות')
+      return render(request, 'accounts/register.html')
+  else:
+    if request.user.is_authenticated:
+      return redirect('/')
+  return render(request, 'accounts/register.html')
 
 def login(request):
   if request.method == 'POST':
@@ -49,10 +52,12 @@ def login(request):
       auth.login(request, user)
       return redirect('dashboard')
     else:
-      messages.error(request, 'Invalid credentials')
-      return redirect('index')
+      messages.error(request, 'הפרטים שהזנת אינם נכונים')
+      return render(request, 'accounts/login.html')
   else:
-    return render(request, 'index')
+    if request.user.is_authenticated:
+      return redirect('/')
+    return render(request, 'accounts/login.html')
 
 def logout(request):
   if request.method == 'POST':
@@ -114,6 +119,25 @@ def upload_avatar(request):
         except:
           current_avatar = None
         avatar_image = request.FILES.get('avatar', '')
+        if avatar_image.seek(0, os.SEEK_END) > 1000000:
+          try:
+            avatar = Avatar.objects.get(user_id=request.user.id)
+          except:
+            avatar = None
+          messages = Contact.objects.filter(target=request.user.id, show_message=True).order_by('-contact_date')
+          if avatar:
+            context = {
+              'messages': messages,
+              'avatar': avatar.avatar.url,
+              'alert': 'גודל הקובץ המקסימלי הוא 1 מגה בייט'
+            }
+          else:
+            context = {
+              'messages': messages,
+              'avatar': '/media/avatars/no-avatar.png',
+              'alert': 'גודל הקובץ המקסימלי הוא 1 מגה בייט'
+            }
+          return render(request, 'accounts/dashboard.html', context)
         if current_avatar:
           os.remove(settings.MEDIA_ROOT+current_avatar.avatar.url[6:])
           current_avatar.delete()

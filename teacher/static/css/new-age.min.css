@@ -100,7 +100,33 @@ section h2 {
   color: #fc5320;
 }
 
+footer.fixed-bottom {
+  position: relative;
+}
+
+div.register-page-form {
+  margin-bottom: 30px;
+}
+
 @media (min-width: 992px) {
+
+  .form-label-group label.active {
+    width: 35%;
+    font-size: 1.3rem;
+  }
+
+  div.register-page-form {
+    margin-bottom: 0;
+  }
+
+  footer.fixed-bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+  }
+
   #mainNav {
       border-color:transparent;
       background-color: #143642;
@@ -489,7 +515,7 @@ footer ul li a.active,footer ul li a:active,footer ul li a:focus,footer ul li a:
 
 .form-label-group > label {
   position: absolute;
-  top: 10%;
+  top: 30%;
   right: 0;
   margin-right: 5px;
   display: block;
@@ -545,16 +571,22 @@ footer ul li a.active,footer ul li a:active,footer ul li a:focus,footer ul li a:
 }
 
 .form-label-group input:not(:placeholder-shown) ~ label {
-  margin-right: 75%;
+  margin-right: 65%;
   opacity: 1;
   background-color: blue;
   padding: 6px 0;
   top: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
 .form-label-group label.active {
-  width: 25%;
+  width: 35%;
+  font-size: 0.65rem;
+  font-size: 0.65rem;
 }
 
 .form-label-group textarea:not(:placeholder-shown) ~ label {
@@ -701,4 +733,20 @@ div.contact-date {
 
 div.user-details.div {
   margin: 0 !important;
+}
+
+div.login-page-form {
+  border: 2px solid lightskyblue;
+  padding: 4em 2em;
+  border-radius: 8px;
+  margin-top: 20%;
+  max-width: 500px;
+}
+
+div.register-page-form {
+  border: 2px solid lightskyblue;
+  padding: 2em;
+  border-radius: 8px;
+  margin-top: 10%;
+  max-width: 500px;
 }
