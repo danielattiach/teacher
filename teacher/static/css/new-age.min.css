@@ -573,7 +573,7 @@ footer ul li a.active,footer ul li a:active,footer ul li a:focus,footer ul li a:
 .form-label-group input:not(:placeholder-shown) ~ label {
   margin-right: 65%;
   opacity: 1;
-  background-color: blue;
+  background-color: rgb(143, 172, 245);
   padding: 6px 0;
   top: 0;
   height: 100%;
