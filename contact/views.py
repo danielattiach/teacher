@@ -15,11 +15,11 @@ def send(request):
     if request.user.is_authenticated:
       author = request.user.id
       author_name = User.objects.get(id=author).first_name + ' ' + User.objects.get(id=author).last_name
-      admin = User.objects.get(is_staff=True).id
-      contact = Contact(name=name, email=email, phone=phone, message=message, subject=subject, author=author, author_name=author_name, target=admin, target_name='Admin')
+      teacher = User.objects.get(is_staff=True).id
+      contact = Contact(name=name, email=email, phone=phone, message=message, subject=subject, author=author, author_name=author_name, target=teacher, target_name='Teacher')
     else:
-      admin = User.objects.get(is_staff=True).id
-      contact = Contact(name=name, email=email, phone=phone, message=message, subject=subject, author=-1, author_name='Unregistered User', target=admin, target_name='Admin')
+      teacher = User.objects.get(is_staff=True).id
+      contact = Contact(name=name, email=email, phone=phone, message=message, subject=subject, author=-1, author_name='Unregistered User', target=teacher, target_name='Teacher')
     
     contact.save()
 
@@ -45,13 +45,12 @@ def delete_message(request):
     else:
       return render(request, 'pages/index.html')
 
-def private_message(request, msg_id):
+def reply_message(request, msg_id):
   if request.method == "POST":
     if request.user.is_authenticated:
-      print('id', msg_id)
       subject = request.POST.get('subject', '')
       message = request.POST.get('message', '')
-      name = request.user.last_name + ' ' + request.user.first_name
+      name = request.user.first_name + ' ' + request.user.last_name
       email = request.user.email
       author = request.user.id
       target = Contact.objects.get(pk=msg_id).author
@@ -62,3 +61,36 @@ def private_message(request, msg_id):
     else:
       return render(request, 'pages/index.html')
 
+def teacher_message(request):
+  if request.method == "POST":
+    if request.user.is_authenticated:
+      subject = request.POST.get('teacher-message-subject', '')
+      message = request.POST.get('teacher-message-message', '')
+      name =  request.user.first_name + ' ' + request.user.last_name
+      email = request.user.email
+      author = request.user.id
+      teacher = User.objects.get(is_staff=True).id
+      target_name = 'Teacher'
+      contact = Contact(name=name, email=email, message=message, subject=subject, author=author, author_name=name, target=teacher, target_name=target_name)
+      contact.save()
+      return redirect('/accounts/dashboard')
+    else:
+      return render(request, 'pages/index.html')
+
+def user_message(request):
+  if request.method == "POST":
+    if request.user.is_authenticated:
+      subject = request.POST.get('user-message-subject', '')
+      message = request.POST.get('user-message-message', '')
+      username = request.POST.get('user-message-target', '')
+      target_obj = User.objects.get(username=username)
+      target = target_obj.id
+      target_name = target_obj.first_name + ' ' + target_obj.last_name
+      name =  request.user.first_name + ' ' + request.user.last_name
+      email = request.user.email
+      author = request.user.id
+      contact = Contact(name=name, email=email, message=message, subject=subject, author=author, author_name=name, target=target, target_name=target_name)
+      contact.save()
+      return redirect('/accounts/dashboard')
+    else:
+      return render(request, 'pages/index.html')

@@ -14,7 +14,7 @@
           </button>
         </div>
         <div class="modal-body mx-4">
-          <form action="{% url 'pm' message.id %}" method="POST">
+          <form action="{% url 'reply' message.id %}" method="POST">
             {% csrf_token %}
             <div class="form-label-group">
               <input name="subject" dir="rtl" type="text" id="subject" class="form-control" placeholder="נושא" required="true">
@@ -22,7 +22,7 @@
             </div>
             
             <div class="form-label-group">
-              <textarea name="message" dir="rtl" type="message" id="message" class="form-control" placeholder="תוכן" required="true"></textarea>
+              <textarea name="message" dir="rtl" id="message" class="form-control" placeholder="תוכן" required="true"></textarea>
               <label for="message">תוכן<i class="fa fa-pencil prefix"></i></label>
             </div>
             <div class="modal-footer d-flex justify-content-center">

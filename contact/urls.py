@@ -4,5 +4,7 @@ from . import views
 urlpatterns = [
   path('send/', views.send, name='send'),
   path('delete/', views.delete_message, name='delete'),
-  path('pm/<int:msg_id>', views.private_message, name='pm')
+  path('reply/<int:msg_id>', views.reply_message, name='reply'),
+  path('tm/', views.teacher_message, name='tm'),
+  path('um/', views.user_message, name='um')
 ]
