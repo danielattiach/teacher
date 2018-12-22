@@ -126,6 +126,7 @@ a.user-avatar-link img{
 @media (min-width: 992px) {
 
   a.user-avatar-link::before {
+    color: black;
     opacity: 0;
   }
 
