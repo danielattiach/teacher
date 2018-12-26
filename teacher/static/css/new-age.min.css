@@ -210,6 +210,12 @@ a.user-avatar-link img{
   }
 }
 
+section.about {
+  position: relative;
+  padding: 0px 0;
+  background-color: #20272A;
+}
+
 header.masthead {
   position: relative;
   width: 100%;
@@ -242,6 +248,11 @@ header.masthead .device-container .screen img {
 }
 
 @media (min-width: 992px) {
+
+  section.about {
+    padding: 150px 0;
+  }
+
   header.masthead {
       height:100vh;
       min-height: 775px;
@@ -270,12 +281,6 @@ section.linkup {
 
 footer,section.linkup {
   text-align: center;
-}
-
-section.about {
-  position: relative;
-  padding: 150px 0;
-  background-color: #20272A;
 }
 
 section.about h2 {
@@ -786,6 +791,10 @@ div.register-page-form {
 
 .vh-100 {
   height: 85.9vh;
+}
+
+.vh-full {
+  height: 100vh;
 }
 
 .flex-align-middle {
