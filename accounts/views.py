@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from django.contrib import messages, auth
+from django.http import JsonResponse
 from contact.models import Contact
-from .models import Avatar
 from django.conf import settings
+from .models import Avatar
 import os
 
 def register(request):
@@ -149,3 +150,8 @@ def upload_avatar(request):
       return redirect('/accounts/dashboard')
     else:
       return redirect('/')
+
+def search_user(request):
+  username = request.GET.get('username')
+  users = [user.username for user in User.objects.filter(username__contains=username)] if username else None
+  return JsonResponse({'users': users})

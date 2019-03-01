@@ -1,4 +1,4 @@
- #mainNav,h1,h2,h3,h4,h5,h6 {
+#mainNav,h1,h2,h3,h4,h5,h6 {
   font-weight: 200;
 }
 
@@ -802,4 +802,41 @@ div.register-page-form {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+}
+
+div#user-search-results {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  visibility: hidden;
+  overflow-y: scroll;
+  max-height: 130px;
+}
+
+div#user-search-results.show-list {
+  background-color: #eee;
+  border: 2px solid #ddd;
+  visibility: visible;
+  border-radius: 3px;
+}
+
+div#user-search-results ul {
+  list-style-type: none;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+}
+
+div#user-search-results ul li {
+  cursor: pointer;
+  margin: 5px;
+  background-color: #eee;
+  transition: 0.3s;
+}
+
+div#user-search-results ul li:hover {
+  background-color: #fff;
+  transition: 0.3s;
 }
