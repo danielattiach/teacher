@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="modal fade" id="miguelModal" tabindex="-1" role="dialog" aria-labelledby="miguelLabel"
+      aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Mega Tutorial</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>In this part you need to read Miguel Grinberg's PDF that I gave you</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-margin container vh-100">
+    <div class="header text-center">
+      <h1>Balak's Guide</h1>
+    </div>
+    <div class="content">
+      <ul class="course-list">
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank">Basic Python Course</a></span> <span>4:26:51</span></li>
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=UB1O30fR-EE" target="_blank">HTML Course</a></span> <span>1:00:41</span></li>
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=yfoY53QXEnI" target="_blank">CSS Course</a></span> <span>1:25:10</span></li>
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=hdI2bqOjy3c" target="_blank">JavaScript Course</a></span> <span>1:40:29</span></li>
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=3dt4OGnU5sM" target="_blank">Python Comprehensions</a></span> <span>18:28</span></li>
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=3nrLc_JOF7k&list=PLillGF-RfqbYJVXBgZ_nA7FTAAEpp_IAc" target="_blank">JQuery Course Playlist</a></span> <span>1:41:59</span></li>
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=ZDa-Z5JzLYM&list=PL-osiE80TeTsqhIuOqKhwlXsIBIdSeYtc" target="_blank">Object Oriented Python</a></span> <span>1:25:28</span></li>
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=rq8cL2XMM5M" target="_blank">Advanced Python #1</a></span> <span>15:19</span></li>
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=3ohzBxoFHAY" target="_blank">Advanced Python #2</a></span> <span>13:49</span></li>
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=wI1CWzNtE-M" target="_blank">JSON Course</a></span> <span>24:49</span></li>
+        <li class="spread-items"><span><a href="https://www.youtube.com/watch?v=MwZwr5Tvyxo&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH" target="_blank">Flask Course Playlist</a></span> <span>8:50:42</span></li>
+        <li class="spread-items"><span><a href="" data-toggle="modal" data-target="#miguelModal">Miguel Grinberg's Flask Mega Tutorial</a></span> <span>Depends on you!</span></li>
+        <li class="spread-items total-time"><span>Total Time (without Miguel's guide)</span> <span>21:43:45</span></li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}

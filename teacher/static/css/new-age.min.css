@@ -840,3 +840,33 @@ div#user-search-results ul li:hover {
   background-color: #fff;
   transition: 0.3s;
 }
+
+li.spread-items {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+}
+
+div.content {
+  display: flex;
+  justify-content: center;
+}
+
+ul.course-list {
+  width: 100%;
+  padding: 0;
+}
+
+li.spread-items, li.spread-items span a {
+  color: #0074B3;
+}
+
+li.total-time {
+  color: rgb(43, 175, 76);
+}
+
+@media (min-width: 500px) {
+  li.total-time {
+    font-size: 1.4rem;
+  }
+}
